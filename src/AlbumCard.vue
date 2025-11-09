@@ -12,9 +12,9 @@
       <h3 class="title">{{ album.title }}</h3>
       <p class="artist">{{ album.artist }}</p>
       <p class="meta">{{ album.year }} • {{ album.genre }}</p>
-      <ul class="tracklist">
-        <li v-for="track in album.tracks" :key="track">{{ track }}</li>
-      </ul>
+      <div class="tracklist">
+        <div v-for="track in album.tracks" :key="track">{{ track }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -71,18 +71,18 @@ const visible = computed(() => {
 
 .album-popup {
   position: absolute;
-  bottom: -200%;
-  left: 130%;
+  top: 50%;
+  bottom: -340%;
+  left: 140%;
   transform: translateX(-50%);
-  background-color: white;
-  border-radius: 16px;
+  background-color: rgb(202, 202, 202);
+  border-radius: 1px;
   padding: 1rem;
   z-index: 10;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
   max-height: 75vh;
   overflow-y: auto;
-  border: 1px solid #ddd;
-  width: 260px;
+  border: 3.5px solid #E1341E;
+  width: 350px;
   animation: fadeIn 0.2s ease-out;
 }
 
@@ -107,7 +107,7 @@ const visible = computed(() => {
 .tracklist {
   list-style-type: disc;
   padding-left: 1rem;
-  font-size: 0.9rem;
+  font-size: 12px;
   line-height: 1.4;
   margin: 0;
 }

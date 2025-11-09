@@ -70,13 +70,19 @@ const handleClickOutside = (e) => {
 };
 </script>
 
-<style scoped>
-*{
-    font-family: "IBM Plex Mono", monospace;
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #111111;
+}
+* {
+  font-family: "IBM Plex Mono", monospace;
 }
 .page {
   min-height: 100vh;
-  background-color: #f7f7f7;
   padding: 1rem;
   font-family: system-ui, sans-serif;
 }
@@ -104,22 +110,23 @@ const handleClickOutside = (e) => {
 
 .main-content {
   display: flex;
-  gap: 2rem; 
-  align-items: flex-start; 
+  gap: 2rem;
+  align-items: flex-start;
 }
 
 .album-grid {
   display: grid;
-  gap: 0.5rem; 
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   flex: 1;
 }
 
 .album-list {
   width: 250px;
-  margin-left: 12rem;
+  margin-left: 14rem;
   font-size: 13px;
   font-weight: 300;
+  color: #e0e0e0;
 }
 
 .album-list ul {
@@ -131,12 +138,14 @@ const handleClickOutside = (e) => {
 .album-list li {
   padding: 0rem 0rem;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 0px;
   transition: background-color 0.2s ease;
 }
 
 .album-list li:hover,
 .album-list li.active {
-  background-color: #e0e0e0;
+  background-color: #313131;
+  color: #1ECBE1;
+  font-weight: 500;
 }
 </style>

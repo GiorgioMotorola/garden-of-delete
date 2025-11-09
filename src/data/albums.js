@@ -507,7 +507,7 @@ export const albums = [
     artist: "Huerco S.",
     title: "For Those Of You Who Have Never (And Also Those Who Have)",
     year: 2016,
-    genre: "Ambient, Electroni",
+    genre: "Ambient, Electronic",
     cover: new URL(
       "../assets/albums/huerco-s-for-those-of-you.jpg",
       import.meta.url
