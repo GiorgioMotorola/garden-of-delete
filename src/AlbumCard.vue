@@ -12,15 +12,32 @@
       <h3 class="title">{{ album.title }}</h3>
       <p class="artist">{{ album.artist }}</p>
       <p class="meta">{{ album.year }} • {{ album.genre }}</p>
-      <div class="tracklist">
-        <div v-for="track in album.tracks" :key="track">{{ track }}</div>
+      
+      <div 
+        class="tracklist-container" 
+        :class="{ 'expanded': isExpanded }"
+      >
+        <div class="tracklist">
+          <div v-for="(track, index) in displayedTracks" :key="index">
+            {{ track }}
+          </div>
+        </div>
+        <div v-if="shouldShowToggle && !isExpanded" class="tracklist-fade"></div>
       </div>
+
+      <button 
+        v-if="shouldShowToggle" 
+        @click.stop="isExpanded = !isExpanded"
+        class="toggle-button"
+      >
+        {{ isExpanded ? 'Show Less...' : 'Show More...' }}
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   album: Object,
@@ -29,6 +46,9 @@ const props = defineProps({
   setOpenId: Function,
   setHoveredId: Function
 });
+
+const MAX_VISIBLE_TRACKS = 7;
+const isExpanded = ref(false);
 
 const onGridHover = () => {
   props.setHoveredId(props.album.id);
@@ -39,12 +59,28 @@ const onGridLeave = () => {
 };
 
 const onClick = () => {
-  props.setOpenId(props.openId === props.album.id ? null : props.album.id);
+  const newOpenId = props.openId === props.album.id ? null : props.album.id;
+  props.setOpenId(newOpenId);
+
+  if (newOpenId !== null) {
+      isExpanded.value = false;
+  }
 };
 
 const visible = computed(() => {
   if (props.hoveredId !== null) return props.hoveredId === props.album.id;
   return props.openId === props.album.id;
+});
+
+const displayedTracks = computed(() => {
+    if (isExpanded.value) {
+        return props.album.tracks;
+    }
+    return props.album.tracks.slice(0, MAX_VISIBLE_TRACKS);
+});
+
+const shouldShowToggle = computed(() => {
+    return props.album.tracks.length > MAX_VISIBLE_TRACKS;
 });
 </script>
 
@@ -72,7 +108,7 @@ const visible = computed(() => {
 .album-popup {
   position: absolute;
   top: 50%;
-  bottom: -340%;
+  bottom: -150%;
   left: 140%;
   transform: translateX(-50%);
   background-color: rgb(238, 237, 225);
@@ -84,6 +120,8 @@ const visible = computed(() => {
   border: 3.5px solid #E1341E;
   width: 350px;
   animation: fadeIn 0.2s ease-out;
+  display: flex; 
+  flex-direction: column; 
 }
 
 .title {
@@ -104,12 +142,47 @@ const visible = computed(() => {
   margin: 0.25rem 0 0.75rem 0;
 }
 
+.tracklist-container {
+  max-height: 140px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.tracklist-container.expanded {
+  max-height: 1000px; 
+  overflow: auto;
+}
+
+.tracklist-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to top, rgb(238, 237, 225), transparent);
+  pointer-events: none; 
+}
+
 .tracklist {
-  list-style-type: disc;
-  padding-left: 1rem;
   font-size: 12px;
-  line-height: 1.4;
   margin: 0;
+}
+
+.toggle-button {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  border: none;
+  color: #E1341E;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start; 
+  font-size: 12px;
+}
+
+.toggle-button:hover {
+    text-decoration: underline;
 }
 
 @keyframes fadeIn {
