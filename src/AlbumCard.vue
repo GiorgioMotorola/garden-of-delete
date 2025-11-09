@@ -75,7 +75,7 @@ const visible = computed(() => {
   bottom: -340%;
   left: 140%;
   transform: translateX(-50%);
-  background-color: rgb(202, 202, 202);
+  background-color: rgb(238, 237, 225);
   border-radius: 1px;
   padding: 1rem;
   z-index: 10;

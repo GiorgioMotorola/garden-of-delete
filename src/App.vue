@@ -47,7 +47,7 @@ const setOpenId = (id) => (openId.value = id);
 const setHoveredId = (id) => (hoveredId.value = id);
 
 const albums = computed(() =>
-  [...rawAlbums].sort((a, b) => a.title.localeCompare(b.title))
+  [...rawAlbums].sort((a, b) => a.artist.localeCompare(b.artist))
 );
 
 const showRandom = async () => {
@@ -84,7 +84,6 @@ body {
 .page {
   min-height: 100vh;
   padding: 1rem;
-  font-family: system-ui, sans-serif;
 }
 
 .header {
@@ -122,11 +121,12 @@ body {
 }
 
 .album-list {
-  width: 250px;
-  margin-left: 14rem;
-  font-size: 13px;
+  width: 320px;
+  margin-left: 16rem;
+  font-size: 12px;
   font-weight: 300;
   color: #e0e0e0;
+  text-align: start;
 }
 
 .album-list ul {
@@ -146,6 +146,6 @@ body {
 .album-list li.active {
   background-color: #313131;
   color: #1ECBE1;
-  font-weight: 500;
+  font-weight: 700;
 }
 </style>
