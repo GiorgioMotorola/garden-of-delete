@@ -42,7 +42,6 @@ const onClick = () => {
   props.setOpenId(props.openId === props.album.id ? null : props.album.id);
 };
 
-// Reactive popup visibility: hover takes priority over click
 const visible = computed(() => {
   if (props.hoveredId !== null) return props.hoveredId === props.album.id;
   return props.openId === props.album.id;

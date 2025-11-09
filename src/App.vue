@@ -52,8 +52,8 @@ const albums = computed(() =>
 
 const showRandom = async () => {
   const random = albums.value[Math.floor(Math.random() * albums.value.length)];
-  setHoveredId(null); // clear hover
-  setOpenId(random.id); // set openId
+  setHoveredId(null);
+  setOpenId(random.id);
   await nextTick();
   document
     .getElementById(`album-${random.id}`)
@@ -71,6 +71,9 @@ const handleClickOutside = (e) => {
 </script>
 
 <style scoped>
+*{
+    font-family: "IBM Plex Mono", monospace;
+}
 .page {
   min-height: 100vh;
   background-color: #f7f7f7;
@@ -113,8 +116,10 @@ const handleClickOutside = (e) => {
 }
 
 .album-list {
-  width: 200px;
+  width: 250px;
   margin-left: 12rem;
+  font-size: 13px;
+  font-weight: 300;
 }
 
 .album-list ul {
